@@ -268,6 +268,7 @@ void
 ngx_http_vhost_traffic_status_node_zero(ngx_http_vhost_traffic_status_node_t *vtsn)
 {
     vtsn->stat_request_counter = 0;
+    vtsn->stat_connections = 0;
     vtsn->stat_in_bytes = 0;
     vtsn->stat_out_bytes = 0;
     vtsn->stat_1xx_counter = 0;

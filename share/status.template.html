@@ -545,15 +545,18 @@
             function templateUpstreamHeader() {
                 var heads = [];
 
-                heads[0] = '{}{}{}{}{}{}{}{}{}'.format(aHe('th rowspan="2"', 'Server'),
-                                                       aHe('th rowspan="2"', 'State'),
-                                                       aHe('th rowspan="2"', 'Response Time'),
-                                                       aHe('th rowspan="2"', 'Weight'),
-                                                       aHe('th rowspan="2"', 'MaxFails'),
-                                                       aHe('th rowspan="2"', 'FailTimeout'),
-                                                       aHe('th colspan="3"', 'Requests'),
-                                                       aHe('th colspan="6"', 'Responses'),
-                                                       aHe('th colspan="4"', 'Traffic'));
+                heads[0] = '{}{}{}{}{}{}{}{}{}{}'.format(
+                    aHe('th rowspan="2"', 'Server'),
+                    aHe('th rowspan="2"', 'State'),
+                    aHe('th rowspan="2"', 'Response Time'),
+                    aHe('th rowspan="2"', 'Weight'),
+                    aHe('th rowspan="2"', 'MaxFails'),
+                    aHe('th rowspan="2"', 'FailTimeout'),
+                    aHe('th colspan="3"', 'Requests'),
+                    aHe('th colspan="6"', 'Responses'),
+                    aHe('th rowspan="2"', 'Connections'),
+                    aHe('th colspan="4"', 'Traffic')
+                );
 
                 heads[1] = aHe('th', ['Total', 'Req/s', 'Time', '1xx', '2xx', '3xx', '4xx', '5xx',
                                       'Total', 'Sent', 'Rcvd', 'Sent/s', 'Rcvd/s']);
@@ -686,7 +689,7 @@
                                                  peer.weight, peer.maxFails, peer.failTimeout,
                                                  (peer.requestCounter + peer.overCounts['maxIntegerSize'] * peer.overCounts['requestCounter']),
                                                  aPs.getValue('{}.{}'.format(uniq, 'requestCounter'), peer.requestCounter),
-                                                 mTh(peer.requestMsec)
+                                                 mTh(peer.requestMsec),
                                                 ]));
 
                     for(var code in peer.responses) {
@@ -696,6 +699,7 @@
                     }
 
                     s = '{}{}'.format(s, aHe('td', [responseTotal,
+                                                    peer.connections,
                                                     bTh(peer.outBytes + peer.overCounts['maxIntegerSize'] * peer.overCounts['outBytes']),
                                                     bTh(peer.inBytes + peer.overCounts['maxIntegerSize'] * peer.overCounts['inBytes']),
                                                     bTh(aPs.getValue('{}.{}'.format(uniq, 'outBytes'), peer.outBytes)),

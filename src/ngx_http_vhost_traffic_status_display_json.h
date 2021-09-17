@@ -133,6 +133,7 @@
 #define NGX_HTTP_VHOST_TRAFFIC_STATUS_JSON_FMT_UPSTREAM_S "\"upstreamZones\":{"
 #define NGX_HTTP_VHOST_TRAFFIC_STATUS_JSON_FMT_UPSTREAM "{\"server\":\"%V\","  \
     "\"requestCounter\":%uA,"                                                  \
+    "\"connections\":%uA,"                                                     \
     "\"inBytes\":%uA,"                                                         \
     "\"outBytes\":%uA,"                                                        \
     "\"responses\":{"                                                          \

@@ -375,7 +375,7 @@ ngx_http_vhost_traffic_status_display_set_upstream_node(ngx_http_request_t *r,
 
     if (vtsn != NULL) {
         buf = ngx_sprintf(buf, NGX_HTTP_VHOST_TRAFFIC_STATUS_JSON_FMT_UPSTREAM,
-                &key, vtsn->stat_request_counter,
+                &key, vtsn->stat_request_counter, vtsn->stat_connections,
                 vtsn->stat_in_bytes, vtsn->stat_out_bytes,
                 vtsn->stat_1xx_counter, vtsn->stat_2xx_counter,
                 vtsn->stat_3xx_counter, vtsn->stat_4xx_counter,
@@ -417,7 +417,7 @@ ngx_http_vhost_traffic_status_display_set_upstream_node(ngx_http_request_t *r,
 
     } else {
         buf = ngx_sprintf(buf, NGX_HTTP_VHOST_TRAFFIC_STATUS_JSON_FMT_UPSTREAM,
-                &key, (ngx_atomic_uint_t) 0,
+                &key, (ngx_atomic_uint_t) 0, (ngx_atomic_uint_t) 0,
                 (ngx_atomic_uint_t) 0, (ngx_atomic_uint_t) 0,
                 (ngx_atomic_uint_t) 0, (ngx_atomic_uint_t) 0,
                 (ngx_atomic_uint_t) 0, (ngx_atomic_uint_t) 0,
@@ -599,6 +599,7 @@ ngx_http_vhost_traffic_status_display_set_upstream_group(ngx_http_request_t *r,
 
                 if (node != NULL) {
                     vtsn = (ngx_http_vhost_traffic_status_node_t *) &node->color;
+                    vtsn->stat_connections = peer->conns;
 #if nginx_version > 1007001
                     buf = ngx_http_vhost_traffic_status_display_set_upstream_node(r, buf, &usn, vtsn);
 #else
@@ -651,6 +652,7 @@ not_supported:
 
                     if (node != NULL) {
                         vtsn = (ngx_http_vhost_traffic_status_node_t *) &node->color;
+                        vtsn->stat_connections = 0;
 #if nginx_version > 1007001
                         buf = ngx_http_vhost_traffic_status_display_set_upstream_node(r, buf, &usn, vtsn);
 #else
