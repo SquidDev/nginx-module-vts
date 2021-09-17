@@ -15,15 +15,27 @@
     "# HELP nginx_vts_start_time_seconds Nginx start time\n"                   \
     "# TYPE nginx_vts_start_time_seconds gauge\n"                              \
     "nginx_vts_start_time_seconds %.3f\n"                                      \
-    "# HELP nginx_vts_main_connections Nginx connections\n"                    \
-    "# TYPE nginx_vts_main_connections gauge\n"                                \
-    "nginx_vts_main_connections{status=\"accepted\"} %uA\n"                    \
-    "nginx_vts_main_connections{status=\"active\"} %uA\n"                      \
-    "nginx_vts_main_connections{status=\"handled\"} %uA\n"                     \
-    "nginx_vts_main_connections{status=\"reading\"} %uA\n"                     \
-    "nginx_vts_main_connections{status=\"requests\"} %uA\n"                    \
-    "nginx_vts_main_connections{status=\"waiting\"} %uA\n"                     \
-    "nginx_vts_main_connections{status=\"writing\"} %uA\n"                     \
+    "# HELP nginx_vts_connections_accepted Accepted client connections\n"      \
+    "# TYPE nginx_vts_connections_accepted counter\n"                          \
+    "nginx_vts_connections_accepted %uA\n"                                     \
+    "# HELP nginx_vts_connections_active Active client connections\n"          \
+    "# TYPE nginx_vts_connections_active gauge\n"                              \
+    "nginx_vts_connections_active %uA\n"                                       \
+    "# HELP nginx_vts_connections_handled Handled client connections\n"        \
+    "# TYPE nginx_vts_connections_handled counter\n"                           \
+    "nginx_vts_connections_handled %uA\n"                                      \
+    "# HELP nginx_vts_connections_reading Connections where NGINX is reading the request header\n" \
+    "# TYPE nginx_vts_connections_reading gauge\n"                             \
+    "nginx_vts_connections_reading %uA\n"                                      \
+    "# HELP nginx_vts_connections_waiting dle client connections\n"            \
+    "# TYPE nginx_vts_connections_waiting gauge\n"                             \
+    "nginx_vts_connections_waiting %uA\n"                                      \
+    "# HELP nginx_vts_connections_writing Connections where NGINX is writing the response back to the client\n" \
+    "# TYPE nginx_vts_connections_writing gauge\n"                             \
+    "nginx_vts_connections_writing %uA\n"                                      \
+    "# HELP nginx_vts_http_total_requests Total http requests\n"               \
+    "# TYPE nginx_vts_http_total_requests counter\n"                           \
+    "nginx_vts_http_total_requests %uA\n"                                      \
     "# HELP nginx_vts_main_shm_usage_bytes Shared memory [%V] info\n"          \
     "# TYPE nginx_vts_main_shm_usage_bytes gauge\n"                            \
     "nginx_vts_main_shm_usage_bytes{shared=\"max_size\"} %ui\n"                \

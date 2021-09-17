@@ -37,7 +37,7 @@ ngx_http_vhost_traffic_status_display_prometheus_set_main(ngx_http_request_t *r,
     buf = ngx_sprintf(buf, NGX_HTTP_VHOST_TRAFFIC_STATUS_PROMETHEUS_FMT_MAIN, &ngx_cycle->hostname,
                       NGX_HTTP_VTS_MODULE_VERSION, NGINX_VERSION,
                       (double) vtscf->start_msec / 1000,
-                      ap, ac, hn, rd, rq, wa, wr,
+                      ap, ac, hn, rd, wa, wr, rq,
                       shm_info->name, shm_info->max_size,
                       shm_info->used_size, shm_info->used_node);
 
@@ -481,7 +481,6 @@ u_char *
 ngx_http_vhost_traffic_status_display_prometheus_set(ngx_http_request_t *r,
     u_char *buf)
 {
-    ngx_str_t                                 escaped_key;
     u_char                                    *o, *s;
     ngx_rbtree_node_t                         *node;
     ngx_http_vhost_traffic_status_ctx_t       *ctx;
@@ -506,9 +505,6 @@ ngx_http_vhost_traffic_status_display_prometheus_set(ngx_http_request_t *r,
     buf = ngx_sprintf(buf, NGX_HTTP_VHOST_TRAFFIC_STATUS_PROMETHEUS_FMT_SERVER_CACHE_S);
 #endif
     buf = ngx_http_vhost_traffic_status_display_prometheus_set_server(r, buf, node);
-
-    ngx_http_vhost_traffic_status_escape_prometheus(r->pool, &escaped_key, vtscf->sum_key.data, vtscf->sum_key.len);
-    buf = ngx_http_vhost_traffic_status_display_prometheus_set_server_node(r, buf, &escaped_key, &vtscf->stats);
     
     /* filterZones */
     o = buf;
